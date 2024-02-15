@@ -10,12 +10,12 @@ import Home from "./ui/home/home";
 import CalendarUtilisation from "./ui/vehicule/calendar";
 import Landing from "./ui/auth/landing";
 import Vehicules from "./ui/vehicule/vehicules";
-import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import NouvelleUtilisation from "./ui/vehicule/nouvelle-utilisation";
+
 
 function App() {
   const { user, setUser, isAuthenticated, setIsAuthenticated } = useAuth();
-
-
 
 
 
@@ -30,6 +30,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/calendar" element={<CalendarUtilisation />} />
             <Route path="/vehicules" element={<Vehicules/>} />
+            <Route path="/utilisations/new" element={<NouvelleUtilisation/>}/>
           </Routes>
         </div>
       ) : (
