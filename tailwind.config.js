@@ -74,6 +74,8 @@ module.exports = {
       },
       fontFamily: {
         montserrat: ["Montserrat", "sans-serif"],
+        plaster: ["Plaster", "sans-serif"],
+        inter: ["Inter", "sans-serif"],
       },
     },
   },
