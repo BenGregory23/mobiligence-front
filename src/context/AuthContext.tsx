@@ -11,7 +11,7 @@ export interface AuthContextType {
 const defaultAuthContext: AuthContextType = {
   user: null,
   setUser: () => {},
-  isAuthenticated: true,
+  isAuthenticated: false,
   setIsAuthenticated: () => {},
 };
 
