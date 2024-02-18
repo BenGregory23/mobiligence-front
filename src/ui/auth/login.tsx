@@ -1,12 +1,11 @@
 
 import { Button } from "@/components/ui/button"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { set, useForm } from "react-hook-form"
+import {  useForm } from "react-hook-form"
 import { z } from "zod"
 import {
     Form,
     FormControl,
-    FormDescription,
     FormField,
     FormItem,
     FormLabel,
@@ -16,10 +15,13 @@ import { Input } from "@/components/ui/input"
 import PresentationLeft from "./presentation-left"
 import { useAuth } from "@/hooks/useAuth";
 import { Link } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query"
+import { login } from "@/api/login"
+import { useNavigate } from "react-router-dom"
 
 
 const formSchema = z.object({
-    username: z.string().min(2, {
+    login: z.string().min(2, {
         message: "Username must be at least 2 characters.",
     }),
     password: z.string().min(8, {
@@ -28,17 +30,30 @@ const formSchema = z.object({
 })
 
 const Login = () => {
+    const navigate = useNavigate()
     const { user, setUser, isAuthenticated, setIsAuthenticated } = useAuth();
+    const { mutate,  error } = useMutation({mutationFn: login})
+
+
+
+
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
     })
 
     // 2. Define a submit handler.
-    function onSubmit(values: z.infer<typeof formSchema>) {
-        // Do something with the form values.
-        // ✅ This will be type-safe and validated.
-        console.log(values)
-        setIsAuthenticated(true);
+    async function onSubmit(values: z.infer<typeof formSchema>) {
+        const credentials = { login: values.login, password: values.password }
+        try {
+            mutate(credentials)
+        
+            // Handle successful login
+            // setIsAuthenticated(true);
+            // navigate("/")
+        } catch (error) {
+            // Handle login error
+            console.error("Login failed:", error);
+        }
     }
     return (
         <div className="flex flex-row">
@@ -60,7 +75,7 @@ const Login = () => {
                     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5 p-10 lg:w-1/2  items-center">
                         <FormField
                             control={form.control}
-                            name="username"
+                            name="login"
                             render={({ field }) => (
                                 <FormItem>
                                     <FormLabel>Adresse email</FormLabel>
@@ -87,6 +102,10 @@ const Login = () => {
                         <Button type="submit">Se connecter</Button>
                     </form>
                 </Form>
+
+                <div>
+                    {error?.name && <p className="text-red-500">{error.message}</p>}
+                </div>
 
             </div>
 
