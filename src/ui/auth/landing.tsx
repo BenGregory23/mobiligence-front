@@ -11,6 +11,8 @@ import { Link } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import Footer from "../shared/footer";
 import ParallaxText from "../shared/parallaxText";
+import CustomCalendar from "../calendar/custom-calendar";
+import { motion, useScroll } from "framer-motion";
 
 
 const locales = {
@@ -28,6 +30,7 @@ const localizer = dateFnsLocalizer({
 
 const Landing = () => {
     const { setIsAuthenticated } = useAuth();
+    const { scrollYProgress } = useScroll();
 
     const handleTest = () => {
         setIsAuthenticated(true);
@@ -67,16 +70,38 @@ const Landing = () => {
 
                         </Button>
                     </div>
+
                 </section>
 
-                <section className="w-screen overflow-hidden h-[50vh]">
+
+
+                <section className="w-screen overflow-hidden h-[30vh]">
                     <ParallaxText baseVelocity={-5}>Mobiligence &nbsp;</ParallaxText>
                     <ParallaxText baseVelocity={5}>Mobiligence&nbsp;</ParallaxText>
                 </section>
 
-                <section className="h-[50vh]">
 
+                <section className="h-fit space-x-24 flex justify-center items-center ">
+                    <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
+                        Testez notre outil
+                        <p className="text-2xl font-normal">pour gérer vos utilisations de véhicules</p>
+                    </h1>
+                    <motion.div initial={{ scale: 0 }}
+                        whileInView={{ scale: 1, rotate: 0 }}
+                        transition={{ duration: 0.5, type: "spring", bounce: 0.55 }}
+                    >
+
+                    </motion.div>
+
+                    <motion.div initial={{ scale: 0 }}
+                        whileInView={{ scale: 1, rotate: 5 }}
+                        transition={{ duration: 0.5, type: "spring", bounce: 0.55 }}
+                        className="mt-6">
+                        <CustomCalendar showToolbar={false} width={800} defaultView="month" />
+                    </motion.div>
                 </section>
+
+
             </div>
 
 
