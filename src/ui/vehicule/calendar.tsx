@@ -13,7 +13,8 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet"
-import {useState } from 'react';
+import { useState } from 'react';
+import CustomCalendar from '../calendar/custom-calendar';
 
 
 const locales = {
@@ -32,16 +33,14 @@ const localizer = dateFnsLocalizer({
 const CalendarUtilisation = () => {
   const [isSheetOpen, setIsSheetOpen] = useState(false);
 
-  const handleEventClick = (event:Event) => {
+  const handleEventClick = (event: Event) => {
     setIsSheetOpen(true);
   }
 
   const handleSheetClose = (event) => {
-    if(isSheetOpen)
+    if (isSheetOpen)
       setIsSheetOpen(false);
   }
-
-
 
 
   const myEventsList = [
@@ -61,35 +60,8 @@ const CalendarUtilisation = () => {
 
 
   return (
-    <div className='p-4 h-[80vh]' onClick={handleSheetClose}>
-      <Calendar
-        localizer={localizer}
-        events={myEventsList}
-        startAccessor="start"
-        endAccessor="end"
-        defaultView="month"
-        onSelectEvent={(event) => {
-            handleEventClick(event);
-        }}
-       
-
-        style={{ height: "100%" }}
-        culture="fr"
-        messages={{
-          next: "Suivant",
-          previous: "Précédent",
-          today: "Aujourd'hui",
-          month: "Mois",
-          week: "Semaine",
-          day: "Jour",
-          agenda: "Agenda",
-          date: "Date",
-          time: "Heure",
-          event: "Événement",
-          allDay: "toute la journée",
-
-        }}
-      />
+    <div className='p-4 min-h-[80vh] flex justify-center items-center' onClick={handleSheetClose}>
+      <CustomCalendar events={myEventsList} onEventClick={handleEventClick} width={"80vw"} height={"80vh"} views={["month","week"]} />
 
       <Sheet open={isSheetOpen}>
         <SheetContent id='sheet'>
@@ -104,8 +76,8 @@ const CalendarUtilisation = () => {
                 <li>La date de début de l'utilisation</li>
                 <li>La date de fin de l'utilisation</li>
               </ul>
-           
-              
+
+
             </SheetDescription>
           </SheetHeader>
         </SheetContent>
