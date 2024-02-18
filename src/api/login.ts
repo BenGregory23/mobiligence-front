@@ -11,7 +11,6 @@ export const login = async (credentials:{login:string,password:string}) => {
         body: JSON.stringify({login:credentials.login,password:credentials.password}),
         redirect: 'follow'
     });
-    
-    console.log(response);
-    return response.json();
+   
+    return response;
 }

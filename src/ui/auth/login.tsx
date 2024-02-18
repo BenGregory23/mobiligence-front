@@ -29,12 +29,17 @@ const formSchema = z.object({
     }),
 })
 
+const onSucessFn = (data) => {
+    
+    console.log("SUCCESS")
+}
+
 const Login = () => {
     const navigate = useNavigate()
     const { user, setUser, isAuthenticated, setIsAuthenticated } = useAuth();
-    const { mutate,  error } = useMutation({mutationFn: login})
+    const {status,data, mutate,  error } = useMutation({mutationFn: login, onSuccess: (data) => onSucessFn(data)})
 
-
+   
 
 
     const form = useForm<z.infer<typeof formSchema>>({
@@ -45,7 +50,10 @@ const Login = () => {
     async function onSubmit(values: z.infer<typeof formSchema>) {
         const credentials = { login: values.login, password: values.password }
         try {
-            mutate(credentials)
+             mutate(credentials)
+        
+             
+           
         
             // Handle successful login
             // setIsAuthenticated(true);
