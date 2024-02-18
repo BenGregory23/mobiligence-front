@@ -61,7 +61,7 @@ interface ParallaxProps {
      */
     return (
       <div className="overflow-hidden -tracking-2 m-0 text-nowrap flex flex-nowrap">
-        <motion.div className="font-semibold font-montserrat text-gray-900 uppercase text-6xl flex text-nowrap flex-nowrap whitespace-nowrap" style={{ x }}>
+        <motion.div className="font-semibold font-plaster text-gray-900 uppercase text-6xl flex text-nowrap flex-nowrap whitespace-nowrap" style={{ x }}>
           <span className="block mr-30">{children} </span>
           <span className="block mr-30">{children} </span>
           <span className="block mr-30">{children} </span>
